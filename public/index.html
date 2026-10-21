@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CareerKit – Resume Builder & Student Help</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--text:#1c2033;--muted:#667;--accent:#4f46e5;--line:#e3e5ee;--ok:#16a34a;--bad:#dc2626;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12141c;--card:#1b1e2b;--text:#e8eaf3;--muted:#9aa0b5;--accent:#8b85ff;--line:#2c3040;color-scheme:dark}}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.5}
+header{padding:16px 20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+header h1{font-size:20px;margin:0}header span{color:var(--muted);font-size:13px}
+nav{display:flex;gap:6px;padding:0 20px 12px;overflow-x:auto}
+nav button{border:1px solid var(--line);background:var(--card);color:var(--text);padding:8px 14px;border-radius:999px;cursor:pointer;white-space:nowrap;font-size:14px}
+nav button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+main{padding:0 20px 40px;max-width:1200px;margin:auto}
+.tab{display:none}.tab.on{display:block}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:800px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+label{display:block;font-size:12px;color:var(--muted);margin:10px 0 3px}
+input,textarea,select{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text);font:inherit;font-size:14px}
+textarea{min-height:70px;resize:vertical}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{background:var(--accent);color:#fff;border:0;padding:9px 16px;border-radius:8px;cursor:pointer;font-size:14px;margin-top:12px;margin-right:6px}
+.btn.alt{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+h2{font-size:16px;margin:0 0 4px}
+.chip{display:inline-block;padding:2px 9px;margin:2px;border-radius:999px;font-size:12px}
+.chip.ok{background:rgba(22,163,74,.15);color:var(--ok)}.chip.bad{background:rgba(220,38,38,.15);color:var(--bad)}
+.score{font-size:42px;font-weight:700}
+.bar{height:10px;border-radius:6px;background:var(--line);overflow:hidden}.bar i{display:block;height:100%;background:var(--accent)}
+details{border:1px solid var(--line);border-radius:8px;padding:8px 12px;margin:8px 0}summary{cursor:pointer;font-weight:600;font-size:14px}
+details p{margin:6px 0 0;color:var(--muted);font-size:14px}
+.step{display:flex;gap:10px;margin:10px 0}.step b{background:var(--accent);color:#fff;border-radius:50%;width:26px;height:26px;flex:none;display:grid;place-items:center;font-size:13px}
+/* resume paper: always light so it prints well */
+#paper{background:#fff;color:#111;padding:28px 32px;border-radius:6px;font-size:13px;line-height:1.45;min-height:420px;border:1px solid var(--line)}
+#paper h1{margin:0;font-size:26px}#paper h3{margin:14px 0 4px;font-size:13px;text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid #bbb;padding-bottom:2px}
+#paper .ct{color:#444;font-size:12px}#paper ul{margin:3px 0;padding-left:18px}#paper p{margin:3px 0}
+#paper.classic{font-family:Georgia,"Times New Roman",serif}#paper.classic h1{text-align:center}#paper.classic .ct{text-align:center}
+#paper.modern{font-family:system-ui,sans-serif;border-top:8px solid #4f46e5}#paper.modern h3{color:#4f46e5;border-color:#4f46e5}
+@media print{body *{visibility:hidden}#paper,#paper *{visibility:visible}#paper{position:absolute;inset:0;border:0;border-radius:0}}
+</style>
+</head>
+<body>
+<header><h1>🎓 CareerKit</h1><span>Resume builder &amp; student help toolkit</span></header>
+<nav id="nav"></nav>
+<main>
+
+<section class="tab on" id="t-resume"><div class="grid">
+<div class="card">
+<h2>Your details</h2>
+<div class="row"><div><label>Full name</label><input id="name" value="Aarav Patel"></div><div><label>Email</label><input id="email" value="aarav@example.com"></div></div>
+<div class="row"><div><label>Phone</label><input id="phone" value="+91 98765 43210"></div><div><label>City</label><input id="city" value="Ahmedabad"></div></div>
+<label>LinkedIn / GitHub</label><input id="links" value="github.com/aarav">
+<label>Summary</label><textarea id="summary">Final-year B.Tech CSE student interested in web development and problem solving.</textarea>
+<label>Skills (comma separated)</label><input id="skills" value="JavaScript, Python, React, SQL, Git, HTML, CSS">
+<label>Education (one per line)</label><textarea id="edu">B.Tech CSE, GTU – 2027 – CGPA 8.4
+Class XII, GSEB – 2023 – 91%</textarea>
+<label>Projects (one per line: Title – description)</label><textarea id="proj">Expense Tracker – React app with charts and local storage
+Library System – Python + SQL based book management tool</textarea>
+<label>Experience / Internships (one per line)</label><textarea id="exp">Web Dev Intern, XYZ Tech – built landing pages and REST APIs</textarea>
+<label>Resume title (used when saving)</label><input id="rtitle" value="My Resume"><label>Template</label><select id="tpl"><option value="classic">Classic</option><option value="modern">Modern</option></select>
+<button class="btn" onclick="window.print()">Download PDF</button><button class="btn alt" onclick="resetAll()">Reset</button><button class="btn" onclick="saveResume()">Save to account</button><button class="btn alt" onclick="curId=null;saveResume()">Save as new</button> <span id="saveMsg" style="font-size:13px"></span>
+<p style="font-size:12px;color:var(--muted)">Tip: in the print dialog choose “Save as PDF”.</p>
+</div>
+<div><div id="paper" class="classic"></div></div>
+</div></section>
+
+<section class="tab" id="t-ats"><div class="grid">
+<div class="card"><h2>ATS match checker</h2><p style="color:var(--muted);font-size:14px;margin:0">Paste a job description. We compare its keywords with your resume.</p>
+<label>Job description</label><textarea id="jd" style="min-height:220px" placeholder="Paste job description here…"></textarea>
+<button class="btn" onclick="runATS()">Check score</button></div>
+<div class="card" id="atsOut"><p style="color:var(--muted)">Your result will appear here.</p></div>
+</div></section>
+
+<section class="tab" id="t-cover"><div class="grid">
+<div class="card"><h2>Cover letter generator</h2>
+<div class="row"><div><label>Company</label><input id="co" value="Acme Corp"></div><div><label>Role</label><input id="role" value="Software Developer Intern"></div></div>
+<label>Hiring manager (optional)</label><input id="hm" placeholder="e.g. Ms. Shah">
+<label>Tone</label><select id="tone"><option value="f">Formal</option><option value="e">Enthusiastic</option></select>
+<button class="btn" onclick="genCover()">Generate</button></div>
+<div class="card"><textarea id="coverOut" style="min-height:330px"></textarea><button class="btn alt" onclick="navigator.clipboard&&navigator.clipboard.writeText(coverOut.value)">Copy</button></div>
+</div></section>
+
+<section class="tab" id="t-int"><div class="card"><h2>Interview question bank</h2>
+<label>Topic</label><select id="topic" onchange="showQ()"></select><div id="qList"></div></div></section>
+
+<section class="tab" id="t-road"><div class="card"><h2>Career roadmap</h2>
+<label>Choose a path</label><select id="path" onchange="showRoad()"></select><div id="roadOut"></div></div></section>
+
+<section class="tab" id="t-mine"><div class="card"><h2>My saved resumes</h2><p id="mineMsg" style="color:var(--muted);font-size:14px">Log in from the Account tab to see your saved resumes.</p><div id="mineList"></div></div></section>
+
+<section class="tab" id="t-acct"><div class="card" style="max-width:420px"><h2>Account</h2><div id="acctOut"></div>
+<div id="acctForm"><label>Name (needed for sign up)</label><input id="an"><label>Email</label><input id="ae" type="email"><label>Password (min 6 characters)</label><input id="ap" type="password">
+<button class="btn" onclick="auth('login')">Log in</button><button class="btn alt" onclick="auth('register')">Sign up</button></div>
+<p id="acctMsg" style="font-size:13px"></p></div></section>
+
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const lines=s=>s.split('\n').map(x=>x.trim()).filter(Boolean);
+const fields=['name','email','phone','city','links','summary','skills','edu','proj','exp','tpl'];
+
+/* tabs */
+const tabs=[['resume','Resume'],['ats','ATS Check'],['cover','Cover Letter'],['int','Interview Prep'],['road','Roadmap'],['mine','My Resumes'],['acct','Account']];
+$('nav').innerHTML=tabs.map(t=>`<button data-t="${t[0]}">${t[1]}</button>`).join('');
+$('nav').onclick=e=>{const t=e.target.dataset.t;if(!t)return;
+ document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x.id==='t-'+t));
+ document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));};
+document.querySelector('nav button').classList.add('on');
+
+/* resume */
+function renderResume(){
+ const v={};fields.forEach(f=>v[f]=$(f).value);
+ const sec=(h,b)=>b?`<h3>${h}</h3>${b}`:'';
+ const li=a=>a.length?'<ul>'+a.map(x=>`<li>${esc(x)}</li>`).join('')+'</ul>':'';
+ const contact=[v.email,v.phone,v.city,v.links].filter(Boolean).map(esc).join(' • ');
+ $('paper').className=v.tpl;
+ $('paper').innerHTML=`<h1>${esc(v.name)}</h1><div class="ct">${contact}</div>`+
+  sec('Summary',v.summary?`<p>${esc(v.summary)}</p>`:'')+
+  sec('Skills',v.skills?`<p>${esc(v.skills)}</p>`:'')+
+  sec('Experience',li(lines(v.exp)))+sec('Projects',li(lines(v.proj)))+sec('Education',li(lines(v.edu)));
+ try{localStorage.setItem('ck',JSON.stringify(v))}catch(e){}
+}
+function loadSaved(){try{const v=JSON.parse(localStorage.getItem('ck')||'null');if(v)fields.forEach(f=>{if(v[f]!=null)$(f).value=v[f]})}catch(e){}}
+function resetAll(){try{localStorage.removeItem('ck')}catch(e){}location.reload()}
+fields.forEach(f=>$(f).addEventListener('input',renderResume));
+loadSaved();renderResume();
+
+/* ATS */
+const stop=new Set('the and for with you your are will our have has this that from they their who can able work working team teams years year experience skills strong good job role candidate required preferred including such more other than into about also etc using use ability knowledge looking join must should should responsibilities requirements company'.split(' '));
+function runATS(){
+ const jd=$('jd').value.toLowerCase();if(jd.trim().length<20){$('atsOut').innerHTML='<p>Please paste a longer job description.</p>';return}
+ const cnt={};(jd.match(/[a-z+#.]{2,}/g)||[]).forEach(w=>{w=w.replace(/\.+$/,'');if(w.length>2&&!stop.has(w))cnt[w]=(cnt[w]||0)+1});
+ const kw=Object.keys(cnt).sort((a,b)=>cnt[b]-cnt[a]).slice(0,20);
+ const res=$('paper').innerText.toLowerCase();
+ const hit=kw.filter(k=>res.includes(k)),miss=kw.filter(k=>!res.includes(k));
+ const sc=kw.length?Math.round(hit.length/kw.length*100):0;
+ $('atsOut').innerHTML=`<div class="score">${sc}%</div><div class="bar"><i style="width:${sc}%"></i></div>
+ <h2 style="margin-top:14px">Matched</h2>${hit.map(k=>`<span class="chip ok">${esc(k)}</span>`).join('')||'None'}
+ <h2 style="margin-top:14px">Missing – add if truthful</h2>${miss.map(k=>`<span class="chip bad">${esc(k)}</span>`).join('')||'None 🎉'}`;
+}
+
+/* cover letter */
+function genCover(){
+ const n=$('name').value,co=$('co').value,r=$('role').value,hm=$('hm').value;
+ const sk=$('skills').value.split(',').map(s=>s.trim()).filter(Boolean).slice(0,4).join(', ');
+ const p=lines($('proj').value)[0]||'';const e=$('tone').value==='e';
+ $('coverOut').value=`Dear ${hm||'Hiring Manager'},
+
+${e?`I was thrilled to see the ${r} opening at ${co}, and I would love to be part of your team.`:`I am writing to apply for the ${r} position at ${co}.`}
+
+I am a student with hands-on experience in ${sk}. ${p?`Recently I worked on “${p.split('–')[0].trim()}”, which helped me apply these skills to a real problem.`:''} I enjoy learning quickly, working in teams and delivering clean, reliable work.
+
+${e?`I am genuinely excited about what ${co} is building and I am confident I can contribute from day one.`:`I believe my background aligns well with the requirements of this role.`} I have attached my resume and would welcome the chance to discuss my application.
+
+Thank you for your time and consideration.
+
+Sincerely,
+${n}
+${$('email').value} | ${$('phone').value}`;
+}
+genCover();
+
+/* interview bank */
+const Q={
+'DSA':[['Array vs linked list?','Arrays give O(1) index access but costly inserts; linked lists give O(1) insert at a known node but O(n) access.'],['What is a hash table collision and how is it handled?','Two keys map to one slot. Solve with chaining or open addressing.'],['Stack vs queue?','Stack is LIFO, queue is FIFO.'],['Time complexity of binary search?','O(log n), requires sorted data.'],['BFS vs DFS?','BFS uses a queue and explores level by level; DFS uses a stack/recursion and goes deep first.']],
+'DBMS':[['What are ACID properties?','Atomicity, Consistency, Isolation, Durability.'],['Primary key vs foreign key?','Primary key uniquely identifies a row; foreign key references a primary key in another table.'],['What is normalization?','Organizing tables to reduce redundancy (1NF, 2NF, 3NF, BCNF).'],['INNER JOIN vs LEFT JOIN?','Inner returns only matching rows; left returns all left rows plus matches.'],['What is an index?','A structure that speeds up reads at the cost of slower writes and extra space.']],
+'OS':[['Process vs thread?','A process has its own memory space; threads share the memory of their process.'],['What is a deadlock?','Processes wait forever for each other’s resources. Needs mutual exclusion, hold &amp; wait, no preemption, circular wait.'],['What is virtual memory?','Uses disk to extend RAM through paging.'],['Name CPU scheduling algorithms.','FCFS, SJF, Round Robin, Priority.'],['What is a semaphore?','A synchronization variable used to control access to shared resources.']],
+'HR':[['Tell me about yourself.','Keep it 1 minute: education, key skills, one project, why this role.'],['Why should we hire you?','Link your skills and projects directly to the job requirements.'],['Strengths and weaknesses?','Give a real strength with proof; a weakness you are actively improving.'],['Where do you see yourself in 5 years?','Show growth in skills and responsibility within the field.'],['Describe a challenge you overcame.','Use the STAR method: Situation, Task, Action, Result.']]};
+$('topic').innerHTML=Object.keys(Q).map(k=>`<option>${k}</option>`).join('');
+function showQ(){$('qList').innerHTML=Q[$('topic').value].map(q=>`<details><summary>${q[0]}</summary><p>${q[1]}</p></details>`).join('')}showQ();
+
+/* roadmap */
+const R={
+'Web Developer':['Learn HTML, CSS and responsive design','Master JavaScript (ES6+, DOM, async)','Learn Git &amp; GitHub','Pick a framework: React or Vue','Learn Node.js, Express and a database (MongoDB/SQL)','Build and deploy 3 full projects','Apply for internships and contribute to open source'],
+'Data Scientist':['Python + NumPy, Pandas','Statistics and probability basics','Data visualization (Matplotlib, Seaborn)','Machine learning with scikit-learn','SQL and working with real datasets','Deep learning basics (TensorFlow/PyTorch)','Kaggle projects and a portfolio'],
+'Android / App Developer':['Learn Java or Kotlin (or Dart for Flutter)','Understand UI layouts and navigation','Work with APIs and local storage','Learn Firebase for auth and database','Build and publish a sample app','Learn app architecture (MVVM)'],
+'Cyber Security':['Networking and Linux fundamentals','Learn how web attacks work (OWASP Top 10)','Practice on TryHackMe / HackTheBox','Learn Python scripting','Study for Security+ or CEH','Do CTFs and write reports'],
+'Placement Prep (Any role)':['Revise DSA: arrays, strings, trees, graphs, DP','Solve 150+ problems on LeetCode/GFG','Revise DBMS, OS, CN, OOP','Prepare 2 solid projects','Polish resume and LinkedIn','Practice mock interviews']};
+$('path').innerHTML=Object.keys(R).map(k=>`<option>${k}</option>`).join('');
+function showRoad(){$('roadOut').innerHTML=R[$('path').value].map((s,i)=>`<div class="step"><b>${i+1}</b><div>${s}</div></div>`).join('')}showRoad();
+/* ---------- backend / account ---------- */
+let token=null,user=null,curId=null;
+try{token=localStorage.getItem('ckt')}catch(e){}
+function go(t){document.querySelector('nav button[data-t="'+t+'"]').click()}
+async function api(path,method,body){
+ const r=await fetch('/api'+path,{method:method||'GET',headers:Object.assign({'Content-Type':'application/json'},token?{Authorization:'Bearer '+token}:{}),body:body?JSON.stringify(body):undefined});
+ const d=await r.json().catch(()=>({}));
+ if(!r.ok)throw new Error(d.error||'Request failed');
+ return d;
+}
+function setUser(u){
+ user=u;$('acctForm').style.display=u?'none':'block';
+ $('acctOut').innerHTML=u?`<p>Logged in as <strong>${esc(u.name)}</strong> (${esc(u.email)})</p><button class="btn alt" onclick="logout()">Log out</button>`:'<p style="color:var(--muted);font-size:14px">Log in to save your resumes online.</p>';
+}
+async function auth(kind){
+ const m=$('acctMsg');m.style.color='var(--muted)';m.textContent='Please wait…';
+ try{
+  const d=await api('/'+kind,'POST',{name:$('an').value,email:$('ae').value,password:$('ap').value});
+  token=d.token;try{localStorage.setItem('ckt',token)}catch(e){}
+  setUser(d.user);m.textContent='';loadMine();go('resume');
+ }catch(e){m.style.color='var(--bad)';m.textContent=e.message}
+}
+function logout(){
+ token=null;curId=null;try{localStorage.removeItem('ckt')}catch(e){}
+ setUser(null);$('mineList').innerHTML='';$('mineMsg').textContent='Log in from the Account tab to see your saved resumes.';
+}
+async function saveResume(){
+ const m=$('saveMsg');
+ if(!user){alert('Please log in first (Account tab).');go('acct');return}
+ const v={};fields.forEach(f=>v[f]=$(f).value);
+ try{
+  const body={title:$('rtitle').value||'Untitled',data:v};
+  const d=curId?await api('/resumes/'+curId,'PUT',body):await api('/resumes','POST',body);
+  curId=d.resume._id;m.style.color='var(--ok)';m.textContent='Saved ✓';loadMine();
+ }catch(e){m.style.color='var(--bad)';m.textContent=e.message}
+}
+async function loadMine(){
+ try{
+  const d=await api('/resumes');
+  $('mineMsg').textContent=d.resumes.length?'':'No saved resumes yet. Build one and press “Save to account”.';
+  $('mineList').innerHTML=d.resumes.map(r=>`<div class="step" style="align-items:center;justify-content:space-between"><div><strong>${esc(r.title)}</strong><br><small style="color:var(--muted)">${new Date(r.updatedAt).toLocaleString()}</small></div><div><button class="btn" onclick="openR('${r._id}')">Open</button><button class="btn alt" onclick="delR('${r._id}')">Delete</button></div></div>`).join('');
+ }catch(e){}
+}
+async function openR(id){
+ try{
+  const d=await api('/resumes/'+id);
+  fields.forEach(f=>{if(d.resume.data[f]!=null)$(f).value=d.resume.data[f]});
+  $('rtitle').value=d.resume.title;curId=id;renderResume();go('resume');
+ }catch(e){alert(e.message)}
+}
+async function delR(id){
+ if(!confirm('Delete this resume?'))return;
+ try{await api('/resumes/'+id,'DELETE');if(curId===id)curId=null;loadMine()}catch(e){alert(e.message)}
+}
+(async function init(){
+ if(!token){setUser(null);return}
+ try{const d=await api('/me');setUser(d.user);loadMine()}catch(e){logout()}
+})();
+</script>
+</body>
+</html>
